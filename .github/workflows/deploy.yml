@@ -37,8 +37,8 @@ jobs:
         with:
           static_site_generator: next
 
-      - name: Build with Next.js
-        run: npm run build
+      - name: Build with Next.js (force webpack)
+        run: npx next build --webpack
 
       - name: Add .nojekyll for GitHub Pages
         run: touch out/.nojekyll
