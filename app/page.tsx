@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback, useEffect, lazy, Suspense } from "react";
+import { useState, useCallback, useEffect, Suspense } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import {
   ArrowRight,
   Github,
@@ -44,14 +45,16 @@ import {
   termuxCommands,
 } from "@/data/site";
 
-// Lazy-load heavy 3D components
-const HeroScene = lazy(() =>
-  import("@/components/three/hero-scene").then((m) => ({ default: m.HeroScene }))
+// Lazy-load heavy 3D components with SSR disabled (React 19 compat)
+const HeroScene = dynamic(
+  () => import("@/components/three/hero-scene").then((m) => ({ default: m.HeroScene })),
+  { ssr: false, loading: () => null }
 );
-const DashboardPreview = lazy(() =>
-  import("@/components/dashboard-preview").then((m) => ({
+const DashboardPreview = dynamic(
+  () => import("@/components/dashboard-preview").then((m) => ({
     default: m.DashboardPreview,
-  }))
+  })),
+  { ssr: false }
 );
 
 function HeroSceneFallback() {
