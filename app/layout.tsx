@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Providers } from "@/components/providers";
+import { ScrollProgress } from "@/components/scroll-progress";
+import { SmoothScrollProvider } from "@/components/smooth-scroll";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -22,7 +24,7 @@ const description =
   "AIRIS is an AI Operating System that combines ChatGPT, Cursor, GitHub, VS Code AI tools, workflow automation, intelligent agents, and system management into one cohesive ecosystem. Built for developers, by developers.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://" + (process.env.SITE_URL || "your-username.github.io/airis-web")),
+  metadataBase: new URL("https://sufiyan-sabeel.github.io/AIRIS-CLI/"),
   title: { default: title, template: "%s | AIRIS" },
   description,
   applicationName: "AIRIS",
@@ -128,7 +130,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Providers>{children}</Providers>
+        <ScrollProgress />
+        <Providers>
+          <SmoothScrollProvider>
+            {children}
+          </SmoothScrollProvider>
+        </Providers>
       </body>
     </html>
   );
