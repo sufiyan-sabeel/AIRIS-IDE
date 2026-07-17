@@ -161,7 +161,7 @@ function DataFlowParticles({ from, to, active }: { from: Node; to: Node; active:
     let running = true;
 
     function animate() {
-      if (!running) return;
+      if (!running || !ctx) return;
       ctx.clearRect(0, 0, w, h);
 
       particles = particles.map((p) => {
